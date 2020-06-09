@@ -2,10 +2,10 @@
 client and server for speed test
 
 ## Build
-make
+cargo build --release
 
 ## Run client 
-./build/client `<path-to-config>`   
+./target/release/client `<path-to-config>`   
 OR  
 docker run --name client client:latest -v "$(pwd)"/client.toml:/etc/config.toml  
 Example:   
@@ -16,7 +16,7 @@ Example:
   [Download] `x` MB/s (for t seconds)   
 
 ## Run server
-./build/server `<path-to-config>`   
+./target/release/server `<path-to-config>`   
 OR  
 docker run --name server server:latest -v "$(pwd)"/server.toml:/etc/config.toml  
 Example:   
