@@ -6,6 +6,3 @@ COPY . .
 RUN cargo test
 RUN cargo install --path .
 
-CMD ["server"]
-CMD ["client"]
-
