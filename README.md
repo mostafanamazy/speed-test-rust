@@ -2,12 +2,14 @@
 client and server for speed test
 
 ## Build
-cargo build --release
+cargo build --release  
+OR  
+docker build -t speed-test-rust .
 
 ## Run client 
 ./target/release/client `<path-to-config>`   
 OR  
-docker run --name client client:latest -v "$(pwd)"/client.toml:/etc/config.toml  
+docker run -it --rm --name client speed-test-rust client /usr/src/speed-test-rust/config/client.ini
 Example:   
 ./build/client config/client.ini
 
@@ -18,7 +20,7 @@ Example:
 ## Run server
 ./target/release/server `<path-to-config>`   
 OR  
-docker run --name server server:latest -v "$(pwd)"/server.toml:/etc/config.toml  
+docker run -it --rm --name server speed-test-rust server /usr/src/speed-test-rust/config/server.ini 
 Example:   
 ./build/server config/server.ini
   

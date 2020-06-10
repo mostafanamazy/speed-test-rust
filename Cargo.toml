@@ -1,7 +1,12 @@
-[workspace]
+[package]
+name="speed-test-rust"
+version = "0.1.0"
+authors = ["mostafa.namazy@gmail.com <mostafa.namazy@gmail.com>"]
+edition = "2018"
 
-members = [
-    "client",
-    "server",
-]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[dependencies]
+tokio = { version = "0.2", features = ["full"] }
+rust-ini = "0.15.2"
+chrono = "0.4"
