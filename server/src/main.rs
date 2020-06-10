@@ -1,17 +1,16 @@
-use tokio::net::TcpListener;
-use tokio::prelude::*;
+use chrono::Utc;
 use ini::Ini;
 use std::env;
-use chrono::Utc;
+use tokio::net::TcpListener;
+use tokio::prelude::*;
 
 fn server_address() -> String {
     let args: Vec<String> = env::args().collect();
-    let res : String = "".to_string();
+    let res: String = "".to_string();
     if args.len() < 2 {
         eprintln!("please select config file.");
         return res;
-    }
-    else {
+    } else {
         let arg = &args[1];
         let i = Ini::load_from_file(arg).unwrap();
         for (sec, prop) in i.iter() {
@@ -51,7 +50,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 };
 
                 // Write the data back
-                if buf[n-1] == 0 {
+                if buf[n - 1] == 0 {
                     loop {
                         if let Err(_) = socket.write_all(&buf).await {
                             break;
@@ -62,4 +61,3 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         });
     }
 }
-
