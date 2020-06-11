@@ -37,9 +37,9 @@ pub struct ClientConfig {
     pub up_time: u64,
 }
 
-fn arg_file(input: Option<String>) -> String {
+fn arg_file(input: Option<&str>) -> String {
     if let Some(x) = input {
-        return x;
+        return x.to_string();
     }
 
     let mut args: Vec<String> = env::args().collect();
@@ -50,7 +50,7 @@ fn arg_file(input: Option<String>) -> String {
     ret.to_string()
 }
 
-pub fn read_client(input: Option<String>) -> ClientConfig {
+pub fn read_client(input: Option<&str>) -> ClientConfig {
     let i = Ini::load_from_file(arg_file(input)).unwrap();
     let server = i.section(Some("server")).unwrap();
     let test = i.section(Some("test")).unwrap();
@@ -62,7 +62,7 @@ pub fn read_client(input: Option<String>) -> ClientConfig {
     }
 }
 
-pub fn read_server(input: Option<String>) -> String {
+pub fn read_server(input: Option<&str>) -> String {
     let i = Ini::load_from_file(arg_file(input)).unwrap();
     let server = i.section(Some("server")).unwrap();
     let ip = server.get("ip").unwrap();
