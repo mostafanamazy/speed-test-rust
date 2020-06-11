@@ -1,5 +1,5 @@
 [package]
-name="speed-test-rust"
+name="speed_test_rust"
 version = "0.1.0"
 authors = ["mostafa.namazy@gmail.com <mostafa.namazy@gmail.com>"]
 edition = "2018"

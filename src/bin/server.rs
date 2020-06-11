@@ -1,41 +1,19 @@
 use chrono::Utc;
-use ini::Ini;
-use std::env;
 use tokio::net::TcpListener;
 use tokio::prelude::*;
-
-fn server_address() -> String {
-    let args: Vec<String> = env::args().collect();
-    let res: String = "".to_string();
-    if args.len() < 2 {
-        eprintln!("please select config file.");
-        return res;
-    } else {
-        let arg = &args[1];
-        let i = Ini::load_from_file(arg).unwrap();
-        for (sec, prop) in i.iter() {
-            if sec == Some("server") {
-                for (k, v) in prop.iter() {
-                    if k == "address" {
-                        return v.to_string();
-                    }
-                }
-            }
-        }
-    }
-    res
-}
+extern crate speed_test_rust;
+use speed_test_rust::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut listener = TcpListener::bind(server_address()).await?;
+    let mut listener = TcpListener::bind(config::read_server(None)).await?;
 
     loop {
         let (mut socket, addr) = listener.accept().await?;
         println!("[{}] {}", Utc::now().format("%Y-%m-%d %H:%M:%S"), addr);
 
         tokio::spawn(async move {
-            let mut buf = [30; 1024];
+            let mut buf = [30; globals::BUFF_MAX_SIZE];
 
             // In a loop, read data from the socket and write the data back.
             loop {
