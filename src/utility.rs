@@ -1,3 +1,4 @@
+use chrono::Utc;
 fn humanable_str(value: u64) -> String {
     let res = match value {
         v if v >= 1073741824 => format!("{} G", value >> 30),
@@ -34,4 +35,8 @@ pub fn speed_string(bytes: usize, times: u64) -> String {
             _ => "s",
         }
     )
+}
+
+pub fn current_time() -> String {
+    format!("{}", Utc::now().format("%Y-%m-%d %H:%M:%S"))
 }

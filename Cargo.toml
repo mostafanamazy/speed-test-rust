@@ -1,5 +1,5 @@
 [package]
-name="speed_test_rust"
+name="speed-test-rust"
 version = "0.1.0"
 authors = ["mostafa.namazy@gmail.com <mostafa.namazy@gmail.com>"]
 edition = "2018"
@@ -10,3 +10,4 @@ edition = "2018"
 tokio = { version = "0.2", features = ["full"] }
 rust-ini = "0.15.2"
 chrono = "0.4"
+async-trait = "0.1.35"
