@@ -34,16 +34,20 @@ where
         }
     }
 }
+
 pub struct TcpProtocol {
     listener: TcpListener,
 }
+
 #[async_trait]
 pub trait Protocol {
     async fn new(addr: String) -> Result<Self, Box<dyn Error>>
     where
         Self: Sized;
+
     async fn listen(&mut self) -> Result<SocketAddr, Box<dyn Error>>;
 }
+
 #[async_trait]
 impl Protocol for TcpProtocol {
     async fn new(addr: String) -> Result<TcpProtocol, Box<dyn Error>> {
@@ -51,6 +55,7 @@ impl Protocol for TcpProtocol {
             listener: TcpListener::bind(addr).await?,
         })
     }
+
     async fn listen(&mut self) -> Result<SocketAddr, Box<dyn Error>> {
         let (mut stream, addr) = self.listener.accept().await?;
         tokio::spawn(async move { transfer(&mut stream).await });
