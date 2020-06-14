@@ -14,7 +14,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     while start_up.elapsed() < Duration::new(conf.up_time, 0) {
         total += stream.upload()?;
     }
-    println!("[Upload] {}", utility::speed_string(total, conf.up_time));
+    println!(
+        "[Upload] {}",
+        utility::speed_string(total, start_up.elapsed().as_secs())
+    );
     stream.upload_done()?;
     let start_down = Instant::now();
     total = 0;
@@ -23,7 +26,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
     println!(
         "[Download] {}",
-        utility::speed_string(total, conf.down_time)
+        utility::speed_string(total, start_down.elapsed().as_secs())
     );
     Ok(())
 }
